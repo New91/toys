@@ -3,7 +3,7 @@
 //
 
 #pragma once
-
+#include "Game.h"
 
 // CDeskopToysDlg 对话框
 class CDeskopToysDlg : public CDialogEx
@@ -29,6 +29,7 @@ protected:
 	virtual BOOL OnInitDialog();
 	afx_msg void OnPaint();
 	afx_msg HCURSOR OnQueryDragIcon();
+	virtual BOOL PreTranslateMessage(MSG* pMsg) override;
 	DECLARE_MESSAGE_MAP()
 
 	Bitmap *bmp;
@@ -39,4 +40,8 @@ public:
 	afx_msg void OnRButtonUp(UINT nFlags, CPoint point);
 	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
+private:
+	std::shared_ptr<CGame> m_pGame;
+public:
+	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 };

@@ -185,6 +185,7 @@
   <ItemGroup>
     <ClInclude Include="DeskopToys.h" />
     <ClInclude Include="DeskopToysDlg.h" />
+    <ClInclude Include="Game.h" />
     <ClInclude Include="GameTimer.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="ScopeGuard.h" />
@@ -195,6 +196,7 @@
   <ItemGroup>
     <ClCompile Include="DeskopToys.cpp" />
     <ClCompile Include="DeskopToysDlg.cpp" />
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

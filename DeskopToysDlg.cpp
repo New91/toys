@@ -36,6 +36,7 @@ ON_WM_RBUTTONDOWN()
 ON_WM_RBUTTONUP()
 ON_WM_MOUSEMOVE()
 ON_WM_TIMER()
+ON_WM_LBUTTONDOWN()
 END_MESSAGE_MAP()
 
 
@@ -55,16 +56,15 @@ BOOL CDeskopToysDlg::OnInitDialog()
 		int w = GetSystemMetrics(SM_CXSCREEN);
 		int y = GetSystemMetrics(SM_CYSCREEN);
 		MoveWindow(0, 0, w, y);
-	}
-	
-	{
 		//截取部分屏幕，并保存到文件中
 		//RECT r{ 0,0,100,300 };
 		//HBITMAP hBmp = CScreenTools::CopyScreenToBitmap(&r);
 		//保存背景图
 		//CScreenTools::SaveBitmapToFile(hBmp, _T("F:\\1.bmp"));
-		HBITMAP hBmp = CScreenTools::PrintScreen();
-		bmp = Bitmap::FromHBITMAP(hBmp, NULL);
+		///HBITMAP hBmp = CScreenTools::PrintScreen();
+		///bmp = Bitmap::FromHBITMAP(hBmp, NULL);
+		m_pGame = std::make_shared<CGame>(GetSafeHwnd(), 0.0f, 0.0f, float(w), float(y));
+		SetTimer(1, 0, nullptr);
 	}
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
@@ -111,12 +111,27 @@ HCURSOR CDeskopToysDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
+BOOL CDeskopToysDlg::PreTranslateMessage(MSG* pMsg)
+{
+	//按下<ESC>键时
+	if(pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_ESCAPE)
+	{
+		if(m_pGame->OnESC())
+		{
+			return TRUE;
+		}else
+		{
+			
+		}
+	}
+	return CDialogEx::PreTranslateMessage(pMsg);
+}
 
 
 void CDeskopToysDlg::OnLButtonUp(UINT nFlags, CPoint point)
 {
 	// TODO: 在此添加消息处理程序代码和/或调用默认值
-	AfxMessageBox(_T("鼠标左键抬起消息"));
+	m_pGame->OnLButtonUp(nFlags, point);
 	CDialogEx::OnLButtonUp(nFlags, point);
 }
 
@@ -132,7 +147,7 @@ void CDeskopToysDlg::OnLButtonUp(UINT nFlags, CPoint point)
 void CDeskopToysDlg::OnRButtonDown(UINT nFlags, CPoint point)
 {
 	// TODO: 在此添加消息处理程序代码和/或调用默认值
-	AfxMessageBox(_T("鼠标右键抬起消息"));
+	m_pGame->OnRButtonDown(nFlags, point);
 	CDialogEx::OnRButtonDown(nFlags, point);
 }
 
@@ -140,7 +155,7 @@ void CDeskopToysDlg::OnRButtonDown(UINT nFlags, CPoint point)
 void CDeskopToysDlg::OnRButtonUp(UINT nFlags, CPoint point)
 {
 	// TODO: 在此添加消息处理程序代码和/或调用默认值
-
+	m_pGame->OnRButtonUp(nFlags, point);
 	CDialogEx::OnRButtonUp(nFlags, point);
 }
 
@@ -148,7 +163,7 @@ void CDeskopToysDlg::OnRButtonUp(UINT nFlags, CPoint point)
 void CDeskopToysDlg::OnMouseMove(UINT nFlags, CPoint point)
 {
 	// TODO: 在此添加消息处理程序代码和/或调用默认值
-
+	m_pGame->OnMouseMove(nFlags, point);
 	CDialogEx::OnMouseMove(nFlags, point);
 }
 
@@ -156,6 +171,14 @@ void CDeskopToysDlg::OnMouseMove(UINT nFlags, CPoint point)
 void CDeskopToysDlg::OnTimer(UINT_PTR nIDEvent)
 {
 	// TODO: 在此添加消息处理程序代码和/或调用默认值
-
+	m_pGame->EnterFrame(0);
 	CDialogEx::OnTimer(nIDEvent);
+}
+
+
+void CDeskopToysDlg::OnLButtonDown(UINT nFlags, CPoint point)
+{
+	// TODO: 在此添加消息处理程序代码和/或调用默认值
+	m_pGame->OnLButtonDown(nFlags, point);
+	CDialogEx::OnLButtonDown(nFlags, point);
 }

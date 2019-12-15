@@ -6,3 +6,4 @@
 #include "stdafx.h"
 
 
+extern CGame* g_game {nullptr};
