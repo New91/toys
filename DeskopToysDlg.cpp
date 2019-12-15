@@ -30,6 +30,12 @@ void CDeskopToysDlg::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(CDeskopToysDlg, CDialogEx)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
+	ON_WM_LBUTTONUP()
+//	ON_WM_LBUTTONDOWN()
+ON_WM_RBUTTONDOWN()
+ON_WM_RBUTTONUP()
+ON_WM_MOUSEMOVE()
+ON_WM_TIMER()
 END_MESSAGE_MAP()
 
 
@@ -53,10 +59,11 @@ BOOL CDeskopToysDlg::OnInitDialog()
 	
 	{
 		//截取部分屏幕，并保存到文件中
-		RECT r{ 0,0,100,300 };
-		HBITMAP hBmp = CScreenTools::CopyScreenToBitmap(&r);
+		//RECT r{ 0,0,100,300 };
+		//HBITMAP hBmp = CScreenTools::CopyScreenToBitmap(&r);
 		//保存背景图
 		//CScreenTools::SaveBitmapToFile(hBmp, _T("F:\\1.bmp"));
+		HBITMAP hBmp = CScreenTools::PrintScreen();
 		bmp = Bitmap::FromHBITMAP(hBmp, NULL);
 	}
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
@@ -90,7 +97,7 @@ void CDeskopToysDlg::OnPaint()
 		{
 			HDC hdc = ::GetDC(GetSafeHwnd());
 			Gdiplus::Graphics gh(hdc);
-			gh.DrawImage(bmp, Rect(0, 0, 500, 500));
+			gh.DrawImage(bmp, Rect(0, 0, 2560, 1600));
 			::ReleaseDC(GetSafeHwnd(), hdc);
 		}
 		CDialogEx::OnPaint();
@@ -104,3 +111,51 @@ HCURSOR CDeskopToysDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
+
+
+void CDeskopToysDlg::OnLButtonUp(UINT nFlags, CPoint point)
+{
+	// TODO: 在此添加消息处理程序代码和/或调用默认值
+	AfxMessageBox(_T("鼠标左键抬起消息"));
+	CDialogEx::OnLButtonUp(nFlags, point);
+}
+
+
+//void CDeskopToysDlg::OnLButtonDown(UINT nFlags, CPoint point)
+//{
+//	// TODO: 在此添加消息处理程序代码和/或调用默认值
+//
+//	CDialogEx::OnLButtonDown(nFlags, point);
+//}
+
+
+void CDeskopToysDlg::OnRButtonDown(UINT nFlags, CPoint point)
+{
+	// TODO: 在此添加消息处理程序代码和/或调用默认值
+	AfxMessageBox(_T("鼠标右键抬起消息"));
+	CDialogEx::OnRButtonDown(nFlags, point);
+}
+
+
+void CDeskopToysDlg::OnRButtonUp(UINT nFlags, CPoint point)
+{
+	// TODO: 在此添加消息处理程序代码和/或调用默认值
+
+	CDialogEx::OnRButtonUp(nFlags, point);
+}
+
+
+void CDeskopToysDlg::OnMouseMove(UINT nFlags, CPoint point)
+{
+	// TODO: 在此添加消息处理程序代码和/或调用默认值
+
+	CDialogEx::OnMouseMove(nFlags, point);
+}
+
+
+void CDeskopToysDlg::OnTimer(UINT_PTR nIDEvent)
+{
+	// TODO: 在此添加消息处理程序代码和/或调用默认值
+
+	CDialogEx::OnTimer(nIDEvent);
+}
