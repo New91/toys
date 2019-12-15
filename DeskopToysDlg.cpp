@@ -45,7 +45,11 @@ BOOL CDeskopToysDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
 
 	// TODO: 在此添加额外的初始化代码
-
+	{
+		int w = GetSystemMetrics(SM_CXSCREEN);
+		int y = GetSystemMetrics(SM_CYSCREEN);
+		MoveWindow(0, 0, w, y);
+	}
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
 
