@@ -50,6 +50,15 @@ BOOL CDeskopToysDlg::OnInitDialog()
 		int y = GetSystemMetrics(SM_CYSCREEN);
 		MoveWindow(0, 0, w, y);
 	}
+	
+	{
+		//截取部分屏幕，并保存到文件中
+		RECT r{ 0,0,100,300 };
+		HBITMAP hBmp = CScreenTools::CopyScreenToBitmap(&r);
+		//保存背景图
+		CScreenTools::SaveBitmapToFile(hBmp, _T("F:\\1.bmp"));
+		
+	}
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
 

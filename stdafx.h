@@ -52,3 +52,5 @@
 #endif
 
 
+#include "ScreenTools.h"
+#include "ScopeGuard.h"
