@@ -42,6 +42,18 @@
     <ClInclude Include="Game.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="IDrawable.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="IMouseAction.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="IMark.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Shooter.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DeskopToys.cpp">
@@ -54,6 +66,18 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="IDrawable.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="IMouseAction.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="IMark.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Shooter.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
