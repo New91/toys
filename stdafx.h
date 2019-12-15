@@ -51,6 +51,21 @@
 #endif
 #endif
 
+//cpp standard
+#include <memory>
+#include <vector>
+#include <list>
+#include <map>
+#include <algorithm>
+#include <string>
+
+#include <assert.h>
+using namespace std;
+
+#include <gdiplus.h>
+#include <gdipluseffects.h>
+#pragma comment(lib,"Gdiplus.lib")
+using namespace Gdiplus;
 
 #include "ScreenTools.h"
 #include "ScopeGuard.h"

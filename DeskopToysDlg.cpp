@@ -56,8 +56,8 @@ BOOL CDeskopToysDlg::OnInitDialog()
 		RECT r{ 0,0,100,300 };
 		HBITMAP hBmp = CScreenTools::CopyScreenToBitmap(&r);
 		//保存背景图
-		CScreenTools::SaveBitmapToFile(hBmp, _T("F:\\1.bmp"));
-		
+		//CScreenTools::SaveBitmapToFile(hBmp, _T("F:\\1.bmp"));
+		bmp = Bitmap::FromHBITMAP(hBmp, NULL);
 	}
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
@@ -87,6 +87,12 @@ void CDeskopToysDlg::OnPaint()
 	}
 	else
 	{
+		{
+			HDC hdc = ::GetDC(GetSafeHwnd());
+			Gdiplus::Graphics gh(hdc);
+			gh.DrawImage(bmp, Rect(0, 0, 500, 500));
+			::ReleaseDC(GetSafeHwnd(), hdc);
+		}
 		CDialogEx::OnPaint();
 	}
 }

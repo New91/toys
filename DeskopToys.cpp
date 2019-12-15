@@ -50,7 +50,7 @@ BOOL CDeskopToysApp::InitInstance()
 	InitCommonControlsEx(&InitCtrls);
 
 	CWinApp::InitInstance();
-
+	Gdiplus::Status s = GdiplusStartup(&m_tokenGdiplus, &input, &output);
 
 	AfxEnableControlContainer();
 
