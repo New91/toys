@@ -185,11 +185,13 @@
   <ItemGroup>
     <ClInclude Include="DeskopToys.h" />
     <ClInclude Include="DeskopToysDlg.h" />
+    <ClInclude Include="DMenu.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameTimer.h" />
     <ClInclude Include="IDrawable.h" />
     <ClInclude Include="IMark.h" />
     <ClInclude Include="IMouseAction.h" />
+    <ClInclude Include="MenuItem.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="ScopeGuard.h" />
     <ClInclude Include="ScreenTools.h" />
@@ -198,8 +200,10 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CMenuItem.cpp" />
     <ClCompile Include="DeskopToys.cpp" />
     <ClCompile Include="DeskopToysDlg.cpp" />
+    <ClCompile Include="DMenu.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="IDrawable.cpp" />
     <ClCompile Include="IMark.cpp" />

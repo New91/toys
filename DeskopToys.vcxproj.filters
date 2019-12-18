@@ -54,6 +54,12 @@
     <ClInclude Include="Shooter.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="DMenu.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuItem.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DeskopToys.cpp">
@@ -78,6 +84,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Shooter.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DMenu.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CMenuItem.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
