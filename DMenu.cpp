@@ -2,6 +2,8 @@
 #include "DMenu.h"
 #include "Shooter.h"
 #include "Shooter0.h"
+#include "Shooter1.h"
+#include "Shooter2.h"
 
 CDMenu::CDMenu(HWND hWnd):m_hWnd(hWnd)
 {
@@ -182,13 +184,16 @@ bool CDMenu::OnLButtonDown(UINT nFlags, CPoint point)
 		EndAnimate();
 		RECT rc;
 		GetClientRect(m_hWnd, &rc);
-		AfxMessageBox(_T("CShooter1"));
+		//AfxMessageBox(_T("CShooter1"));
+		g_game->SetStatusNormal(make_shared<CShooter1>(static_cast<int>(rc.bottom - rc.top)), FALSE);
 		return true;
 	}
 	if (m_item2->OnLButtonDown(nFlags, point))
 	{
 		EndAnimate();
-		AfxMessageBox(_T("CShooter2"));
+		g_game->SetStatusNormal(make_shared<CShooter2>(), TRUE);
+
+		//AfxMessageBox(_T("CShooter2"));
 		return true;
 	}
 	if (m_item3->OnLButtonDown(nFlags, point))

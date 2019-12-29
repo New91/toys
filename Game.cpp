@@ -259,6 +259,10 @@ void CGame::Draw()
 	}
 	
 	gh.DrawImage(m_imgBk, m_x, m_y, m_width, m_height);//»­±³¾°Í¼
+	for(auto &ptr:m_vMarks)
+	{
+		ptr->Draw(gh);
+	}
 	{
 		switch(m_eStatus)
 		{

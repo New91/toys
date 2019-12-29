@@ -72,6 +72,12 @@
     <ClInclude Include="Shooter0.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Shooter1.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Shooter2.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DeskopToys.cpp">
@@ -114,6 +120,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Shooter0.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Shooter1.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Shooter2.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
