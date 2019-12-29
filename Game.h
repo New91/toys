@@ -1,5 +1,8 @@
 #pragma once
 
+#include "DMenu.h"
+#include "Shooter.h"
+
 class IMark;
 
 class CGame
@@ -29,6 +32,8 @@ public:
 
 	BOOL OnESC();
 
+	// 设置进入游戏阶段，并设置工具
+	void SetStatusNormal(std::shared_ptr<CShooter> pTool, BOOL bCursor = FALSE); 
 	//增加一个破坏物
 	void Append(std::shared_ptr<IMark> pMark)
 	{
@@ -84,5 +89,8 @@ private:
 
 	//背景图
 	Gdiplus::Bitmap *m_imgBk;
+
+	std::shared_ptr<CDMenu> m_menu;//菜单
+	std::shared_ptr<CShooter> m_pTool;//当前选择的工具
 };
 

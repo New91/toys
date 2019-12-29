@@ -122,7 +122,7 @@ public:
 	}
 private:
 	unsigned int m_timeLast{ GetTickCount() };
-	unsigned int m_timeval{ 300 };
+	unsigned int m_timeval{ 100 };
 	// 符合IsTimeval(true)的次数
 	unsigned int m_times{ 0 };
 };

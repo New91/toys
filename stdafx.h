@@ -73,8 +73,8 @@ using namespace Gdiplus;
 
 #define BACK_GROUND_LAYER RGB(0x00,0x00,0x00)
 #define PI(n) (3.1415926f * n)
-#define Radian2Degree(r)  ((180.0f * (r))) / PI(1.0f) //将弧度转换成角度
-#define Degree2Radian(a) ((a) * PI(1.of)/180.0.f)
+#define Radian2Degree(r)  ((180.0f * (r))/ PI(1.0f)) //将弧度转换成角度
+#define Degree2Radian(a) ((a) * PI(1.0f)/180.0f)
 
 #include "Game.h"
 extern CGame* g_game;

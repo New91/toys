@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Game.h"
 #include "ScreenTools.h"
+#include "IMark.h"
 
 CGame::CGame(HWND hWnd, float x, float y, float w, float h)
 	:m_hWnd(hWnd)
@@ -11,6 +12,7 @@ CGame::CGame(HWND hWnd, float x, float y, float w, float h)
 {
 	//保存全局指针
 	g_game = this;
+	m_menu = std::make_shared<CDMenu>(hWnd);//菜单初始化
 	{
 		//截图整个屏幕，画在自己的窗口上
 		RECT r{ (long)x,(long)y,(long)(x + w),(long)(y + h) };
@@ -38,10 +40,15 @@ void CGame::OnLButtonDown(UINT nFlags, CPoint point)
 	{
 	case CGame::EGameStatusSelect:
 		{//菜单阶段，交给m_menu菜单处理
+			if(m_menu->OnLButtonDown(nFlags, point))
+			{
+				break;
+			}
 		break;
 		}
 	case CGame::EGameStatusNormal:
 		{//游戏阶段
+		m_pTool->OnLButtonDown(nFlags, point);
 		break;
 		}
 	default:
@@ -57,10 +64,14 @@ void CGame::OnLButtonUp(UINT nFlags, CPoint point)
 	{
 	case CGame::EGameStatusSelect:
 	{//菜单阶段，交给m_menu菜单处理
+		if (m_menu->OnRButtonDown(nFlags, point)){
+			break;
+		}
 		break;
 	}
 	case CGame::EGameStatusNormal:
 	{//游戏阶段
+		m_pTool->OnLButtonUp(nFlags, point);
 		break;
 	}
 	default:
@@ -81,10 +92,14 @@ void CGame::OnRButtonDown(UINT nFlags, CPoint point)
 	{
 	case CGame::EGameStatusSelect:
 	{//菜单阶段，交给m_menu菜单处理
+		if (m_menu->OnRButtonDown(nFlags, point)) {
+			break;
+		}
 		break;
 	}
 	case CGame::EGameStatusNormal:
 	{//游戏阶段
+		m_pTool->OnRButtonDown(nFlags, point);
 		break;
 	}
 	default:
@@ -101,10 +116,14 @@ void CGame::OnRButtonUp(UINT nFlags, CPoint point)
 	{
 	case CGame::EGameStatusSelect:
 	{//菜单阶段，交给m_menu菜单处理
+		if (m_menu->OnRButtonUp(nFlags, point)) {
+			break;
+		}
 		break;
 	}
 	case CGame::EGameStatusNormal:
 	{//游戏阶段
+		m_pTool->OnRButtonUp(nFlags, point);
 		break;
 	}
 	default:
@@ -129,6 +148,7 @@ void CGame::OnMouseMove(UINT nFlags, CPoint point)
 	}
 	case CGame::EGameStatusNormal:
 	{//游戏阶段
+		m_pTool->OnMouseMove(nFlags, point);
 		break;
 	}
 	default:
@@ -174,6 +194,31 @@ BOOL CGame::OnESC()
 	return FALSE;
 }
 
+void CGame::SetStatusNormal(std::shared_ptr<CShooter> pTool, BOOL bCursor)
+{
+	// 设置使用的工具
+	m_pTool = pTool;
+	// 设置游戏状态
+	m_eStatus = EGameStatusNormal;
+	//隐藏鼠标
+	if(!bCursor)
+	{
+		while(true)
+		{
+			int i = ShowCursor(FALSE);
+			TRACE("隐藏光标 %d \r\n", i);
+			if(i<0)
+			{
+				break;
+			}
+		}
+	}else
+	{
+		int i = ShowCursor(bCursor);
+		TRACE("显示光标 %d \r\n", i);
+	}
+}
+
 void CGame::Draw()
 {
 	HDC hdc = ::GetDC(m_hWnd);
@@ -196,14 +241,38 @@ void CGame::Draw()
 	clr.SetFromCOLORREF(BACK_GROUND_LAYER);
 	gh.Clear(clr);
 	gh.ResetClip();
+	if(!m_vMarks.empty())
+	{
+		Graphics gh(m_imgBk);
+		for(auto ptr:m_vMarks)
+		{
+			// 不再变化的对象，直接合并入背景图片中，用来提高绘图效率
+			if(!ptr->IsChanging())
+			{
+				ptr->Draw(gh);
+			}
+		}
 
+		// 删除不再变化的对象
+		m_vMarks.erase(std::remove_if(m_vMarks.begin(), m_vMarks.end(),
+			[](auto &lhs)->bool {return !lhs->IsChanging(); }), m_vMarks.end());
+	}
+	
 	gh.DrawImage(m_imgBk, m_x, m_y, m_width, m_height);//画背景图
 	{
 		switch(m_eStatus)
 		{
 		case CGame::EGameStatusSelect:
+			if(m_menu)
+			{
+				m_menu->Draw(gh);
+			}
 			break;
 		case CGame::EGameStatusNormal:
+			if(m_pTool)
+			{
+				m_pTool->Draw(gh);
+			}
 			break;
 		default:
 			break;

@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "DMenu.h"
 #include "Shooter.h"
+#include "Shooter0.h"
 
 CDMenu::CDMenu(HWND hWnd):m_hWnd(hWnd)
 {
@@ -172,7 +173,8 @@ bool CDMenu::OnLButtonDown(UINT nFlags, CPoint point)
 	if(m_item0->OnLButtonDown(nFlags,point))
 	{
 		EndAnimate();
-		AfxMessageBox(_T("CShooter0"));
+		//AfxMessageBox(_T("CShooter0"));
+		g_game->SetStatusNormal(make_shared<CShooter0>(), TRUE);
 		return true;
 	}
 	if (m_item1->OnLButtonDown(nFlags, point))
@@ -195,6 +197,8 @@ bool CDMenu::OnLButtonDown(UINT nFlags, CPoint point)
 		AfxMessageBox(_T("CShooter3"));
 		return true;
 	}
+
+	return false;
 }
 
 bool CDMenu::OnMouseMove(UINT nFlags, CPoint point)
